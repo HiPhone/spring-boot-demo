@@ -10,7 +10,10 @@ public enum ReturnCode {
     LOGIN_FAIL(1001, "用户名或密码错误"),
     UNAUTHORIZED(1003, "服务调用未授权"),
     BUSY_ERROR(1004, "服务繁忙，请稍后尝试"),
-    SQL_ERROR(1005, "数据库异常");
+    SQL_ERROR(1005, "数据库异常"),
+    INSERT_ERROR(1006, "插入数据失败"),
+    UPDATE_ERROR(1007, "更新数据失败"),
+    DELETE_ERROR(1008, "删除数据失败");
 
 
     private String message;

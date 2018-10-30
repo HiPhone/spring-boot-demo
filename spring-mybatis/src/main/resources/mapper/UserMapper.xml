@@ -17,8 +17,45 @@
     </sql>
 
     <select id="listAllUserData" resultMap="userResultMap">
-        select
+        SELECT
         <include refid="all_data_list"/>
-        from user_account
+        FROM user_account
     </select>
+
+    <delete id="deleteUserById" parameterType="java.lang.Long">
+        DELETE FROM user_account WHERE id = #{id, jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertNewUser" parameterType="org.hiphone.mybatis.entitys.UserDTO">
+        INSERT INTO user_account
+        (login_name, password, role, create_by, create_time, update_by, update_time )
+        VALUES
+        (#{loginName, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{role, jdbcType=INTEGER}, #{createBy, jdbcType=VARCHAR}, #{createTime, jdbcType=TIMESTAMP}, #{updateBy, jdbcType=VARCHAR}, #{updateTime, jdbcType=TIMESTAMP})
+    </insert>
+
+    <select id="getUserById" parameterType="java.lang.Long" resultMap="userResultMap">
+        SELECT
+        <include refid="all_data_list" />
+        FROM user_account
+        WHERE id = #{id, jdbcType=BIGINT}
+    </select>
+
+    <update id="updateUserById" parameterType="org.hiphone.mybatis.entitys.UserDTO">
+        UPDATE user_account
+        <set>
+            <if test="password != null">
+                password = #{password, jdbcType=VARCHAR},
+            </if>
+            <if test="role != null">
+                role = #{role, jdbcType=INTEGER},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy, jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime, jdbcType=TIMESTAMP}
+            </if>
+        </set>
+        WHERE id = #{id, jdbcType=BIGINT}
+    </update>
 </mapper>
