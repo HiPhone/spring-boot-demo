@@ -3,13 +3,18 @@ package org.hiphone.security.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.hiphone.security.constants.ReturnCode;
-import org.hiphone.security.entity.ResultMessage;
+import org.hiphone.security.entitys.ResultMessage;
+import org.hiphone.security.entitys.UserDTO;
+import org.hiphone.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.web.csrf.CsrfToken;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author HiPhone
@@ -22,6 +27,9 @@ public class TestController {
 
     @Value("${spring.application.name}")
     private String applicationName;
+
+    @Autowired
+    private UserService userService;
 
     @ResponseBody
     @GetMapping("/echo-test")
@@ -36,8 +44,18 @@ public class TestController {
     }
 
     @ResponseBody
+    @PostMapping("/echo-test")
+    public ResultMessage test2(@RequestBody UserDTO userInfo) {
+        return userService.checkLoginUser(userInfo);
+    }
+
+    @ResponseBody
     @GetMapping("/")
-    public ResultMessage home() {
+    public ResultMessage home(HttpServletRequest request, HttpServletResponse response) {
+        CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
+        response.setHeader("X-CSRF-HEADER", token.getHeaderName());
+        response.setHeader("X-CSRF-PARAM", token.getParameterName());
+        response.setHeader("X-CSRF-TOKEN", token.getToken());
         return new ResultMessage(
                 ReturnCode.SUCCESS.getCode(),
                 ReturnCode.SUCCESS.getMessage(),

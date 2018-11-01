@@ -3,7 +3,7 @@ package org.hiphone.security.config;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * PasswordEncoder的实现类,Spring Security 5不允许密码已铭文形式传输
+ * PasswordEncoder的实现类,Spring Security 5不允许密码以明文形式传输
  * 可以在这里加入加密解密算法
  * @author HiPhone
  */

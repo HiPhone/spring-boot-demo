@@ -31,10 +31,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                //.usernameParameter("username") //自定义用户的name的key
+                //.passwordParameter("password") //自定义用户的password的key
+                //.failureUrl("/login?error")  //登陆失败重定向的url
                 .permitAll()
                 .and()
                 //登出配置,使用/login?logout登出
                 .logout()
+
                 //.logoutUrl("/logout")  //配置登出界面
                 //.logoutSuccessUrl("/login/success")  //配置登出成功界面
                 //.invalidateHttpSession(true)  //是否将session无效化
@@ -42,6 +46,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.addLogoutHandler() //登出时的操作
                 .permitAll()
                 //禁用csrf()防跨域,方便前后端分离调试
+                .and()
+                .rememberMe()
+                .tokenValiditySeconds(6000000) //记住我的时间
                 .and()
                 .csrf().disable();
     }

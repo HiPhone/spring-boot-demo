@@ -1,4 +1,4 @@
-package org.hiphone.security.entity;
+package org.hiphone.security.entitys;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
