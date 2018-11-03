@@ -10,8 +10,8 @@ public interface UserService {
 
     /**
      * 通过登陆名获取登陆该用户的密码
-     * @param loginInfo 登陆名
+     * @param loginName 登陆名
      * @return resultMessage
      */
-    ResultMessage checkLoginUser(UserDTO loginInfo);
+    ResultMessage getUserByLoginName(String loginName);
 }

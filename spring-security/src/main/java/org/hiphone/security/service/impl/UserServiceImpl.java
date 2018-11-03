@@ -22,20 +22,16 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public ResultMessage checkLoginUser(UserDTO loginInfo) {
+    public ResultMessage getUserByLoginName(String loginName) {
         ResultMessage resultMessage;
 
         try {
-            logger.info("Starting to check login info which loginName is {}", loginInfo.getLoginName());
-            if (userMapper.getUserByLoginName(loginInfo.getLoginName()).getPassword().equals(loginInfo.getPassword())) {
-                resultMessage = new ResultMessage(ReturnCode.SUCCESS.getCode(),
-                        ReturnCode.LOGIN_SUCCESS.getMessage(),
-                        null);
-            } else {
-                resultMessage = new ResultMessage(ReturnCode.SUCCESS.getCode(),
-                        ReturnCode.LOGIN_FAIL.getMessage(),
-                        null);
-            }
+            logger.info("Starting to check login info which loginName is {}", loginName);
+
+            resultMessage = new ResultMessage(ReturnCode.SUCCESS.getCode(),
+                    ReturnCode.LOGIN_SUCCESS.getMessage(),
+                    userMapper.getUserByLoginName(loginName));
+
         } catch (Exception e) {
             e.printStackTrace();
             logger.error("database get error, message is {}", e.getMessage());

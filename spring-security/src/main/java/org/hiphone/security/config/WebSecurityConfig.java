@@ -1,11 +1,14 @@
 package org.hiphone.security.config;
 
+import org.hiphone.security.service.impl.CustomUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * @author HiPhone
@@ -13,6 +16,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    UserDetailsService customUserService() {
+        return new CustomUserDetailService();
+    }
 
     /**
      * 配置上下文,/echo-test不需要验证身份即可调用,身份验证失败跳转到/login接口,/login默认为登陆界面
@@ -27,7 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //指定能访问接口的单个角色
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 //指定能访问接口的多个角色
-                .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
+                .antMatchers("/dba/**").access("hasRole('ADMIN') or hasRole('DBA')")
+                .antMatchers("/user/**").access("hasRole('ADMIN') or hasRole('DBA') or hasRole('USER')" )
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -60,11 +69,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .passwordEncoder(new PasswordEncode())
-                .withUser("user")
-                .password("password")
-                .roles("USER");
+//        auth
+//                .inMemoryAuthentication()
+//                .passwordEncoder(new PasswordEncode())
+//                .withUser("user")
+//                .password("password")
+//                .roles("USER");
+        auth.userDetailsService(customUserService()).passwordEncoder(new PasswordEncode());
     }
 }

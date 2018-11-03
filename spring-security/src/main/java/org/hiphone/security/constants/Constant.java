@@ -14,4 +14,11 @@ public class Constant {
 
     public static final String ENCODE_TYPE = "UTF-8";
 
+    public static final Map<Integer, String> userRoleMap = new HashMap<>();
+
+    static {
+        userRoleMap.put(0, "ADMIN");
+        userRoleMap.put(1, "DBA");
+        userRoleMap.put(2, "USER");
+    }
 }

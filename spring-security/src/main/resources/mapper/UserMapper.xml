@@ -13,10 +13,10 @@
     </resultMap>
 
     <sql id="login_info">
-        login_name, password
+        id, login_name, password, role, create_by, create_time, update_by, update_time
     </sql>
 
-    <select id="getPasswordByLoginName" parameterType="java.lang.String" resultMap="userResultType">
+    <select id="getUserByLoginName" parameterType="java.lang.String" resultMap="userResultMap">
         SELECT
         <include refid="login_info"/>
         FROM user_account WHERE login_name = #{loginName, jdbcType=VARCHAR}

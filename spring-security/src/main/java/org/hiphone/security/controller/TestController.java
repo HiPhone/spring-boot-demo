@@ -4,17 +4,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.hiphone.security.constants.ReturnCode;
 import org.hiphone.security.entitys.ResultMessage;
-import org.hiphone.security.entitys.UserDTO;
 import org.hiphone.security.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author HiPhone
@@ -28,9 +25,6 @@ public class TestController {
     @Value("${spring.application.name}")
     private String applicationName;
 
-    @Autowired
-    private UserService userService;
-
     @ResponseBody
     @GetMapping("/echo-test")
     @ApiOperation(value = "用于确认服务是否存活的接口", notes = "返回自身状态")
@@ -43,22 +37,43 @@ public class TestController {
                 applicationName + " is alive");
     }
 
-    @ResponseBody
-    @PostMapping("/echo-test")
-    public ResultMessage test2(@RequestBody UserDTO userInfo) {
-        return userService.checkLoginUser(userInfo);
-    }
 
     @ResponseBody
     @GetMapping("/")
-    public ResultMessage home(HttpServletRequest request, HttpServletResponse response) {
-        CsrfToken token = (CsrfToken) request.getAttribute("_csrf");
-        response.setHeader("X-CSRF-HEADER", token.getHeaderName());
-        response.setHeader("X-CSRF-PARAM", token.getParameterName());
-        response.setHeader("X-CSRF-TOKEN", token.getToken());
+    public ResultMessage home() {
         return new ResultMessage(
                 ReturnCode.SUCCESS.getCode(),
                 ReturnCode.SUCCESS.getMessage(),
                 "interesting");
+    }
+
+    @ResponseBody
+    @GetMapping("/admin")
+    public ResultMessage adminPage() {
+        return new ResultMessage(
+                ReturnCode.SUCCESS.getCode(),
+                ReturnCode.SUCCESS.getMessage(),
+                "adminPage"
+        );
+    }
+
+    @ResponseBody
+    @GetMapping("/dba")
+    public ResultMessage dbaPage() {
+        return new ResultMessage(
+                ReturnCode.SUCCESS.getCode(),
+                ReturnCode.SUCCESS.getMessage(),
+                "dbaPage"
+        );
+    }
+
+    @ResponseBody
+    @GetMapping("/user")
+    public ResultMessage userPage() {
+        return new ResultMessage(
+                ReturnCode.SUCCESS.getCode(),
+                ReturnCode.SUCCESS.getMessage(),
+                "userPage"
+        );
     }
 }
