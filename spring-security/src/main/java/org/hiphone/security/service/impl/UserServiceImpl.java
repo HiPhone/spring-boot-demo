@@ -2,7 +2,6 @@ package org.hiphone.security.service.impl;
 
 import org.hiphone.security.constants.ReturnCode;
 import org.hiphone.security.entitys.ResultMessage;
-import org.hiphone.security.entitys.UserDTO;
 import org.hiphone.security.mapper.UserMapper;
 import org.hiphone.security.service.UserService;
 import org.slf4j.Logger;

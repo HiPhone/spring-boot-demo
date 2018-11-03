@@ -33,10 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/echo-test").permitAll()
                 //指定能访问接口的单个角色
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers( "/admin/**").hasRole("ADMIN")
                 //指定能访问接口的多个角色
-                .antMatchers("/dba/**").access("hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/user/**").access("hasRole('ADMIN') or hasRole('DBA') or hasRole('USER')" )
+                .antMatchers("/dba/**").hasAnyRole("DBA", "ADMIN")
+                .antMatchers("/user/**").hasAnyRole("USER", "DBA", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -58,23 +58,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds(6000000) //记住我的时间
-                .and()
-                .csrf().disable();
+//                .and()
+//                .csrf().disable()
+                ;
     }
 
     /**
-     * TODO 写死的用户和密码,后续修改为其他验证方式
+     * 使用自定义的数据库进行用户名密码及权限的问题
      * @param auth
      * @throws Exception
      */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth
-//                .inMemoryAuthentication()
-//                .passwordEncoder(new PasswordEncode())
-//                .withUser("user")
-//                .password("password")
-//                .roles("USER");
+
         auth.userDetailsService(customUserService()).passwordEncoder(new PasswordEncode());
     }
 }

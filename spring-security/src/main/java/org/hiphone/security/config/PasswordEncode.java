@@ -1,5 +1,6 @@
 package org.hiphone.security.config;
 
+import org.hiphone.security.utils.EncryptoUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
