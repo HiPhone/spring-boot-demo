@@ -12,11 +12,11 @@ public class PasswordEncode implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence charSequence) {
-        return charSequence.toString();
+        return EncryptoUtil.encryptStringByBase64(charSequence.toString(), null);
     }
 
     @Override
     public boolean matches(CharSequence charSequence, String s) {
-        return s.equals(charSequence.toString());
+        return s.equals(encode(charSequence));
     }
 }

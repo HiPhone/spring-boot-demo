@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.AuthenticationEntryPoint;
 
 /**
  * @author HiPhone
@@ -18,8 +19,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
-    UserDetailsService customUserService() {
+    public UserDetailsService customUserService() {
         return new CustomUserDetailService();
+    }
+
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+        return new CustomAuthenticationEntryPoint();
     }
 
     /**
@@ -44,6 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.passwordParameter("password") //自定义用户的password的key
                 //.failureUrl("/login?error")  //登陆失败重定向的url
                 .permitAll()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())  //将原生返回的登陆界面以json形式返回，方便前端后分离，注释这行变回原生
                 .and()
                 //登出配置,使用/login?logout登出
                 .logout()
