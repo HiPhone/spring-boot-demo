@@ -49,6 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 //.usernameParameter("username") //自定义用户的name的key
                 //.passwordParameter("password") //自定义用户的password的key
                 //.failureUrl("/login?error")  //登陆失败重定向的url
+                .successForwardUrl("/")
                 .permitAll()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint())  //将原生返回的登陆界面以json形式返回，方便前端后分离，注释这行变回原生
@@ -66,8 +67,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds(6000000) //记住我的时间
-//                .and()
-//                .csrf().disable()
+                .and()
+                .csrf().disable()
                 ;
     }
 

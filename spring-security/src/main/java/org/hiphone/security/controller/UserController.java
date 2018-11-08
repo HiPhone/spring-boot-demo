@@ -8,6 +8,7 @@ import org.hiphone.security.entitys.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +36,23 @@ public class UserController {
         return new ResultMessage(
                 ReturnCode.SUCCESS.getCode(),
                 ReturnCode.SUCCESS.getMessage(),
-                "登陆成功");
+                System.currentTimeMillis());
+    }
+
+    @ResponseBody
+    @PostMapping("/")
+    @ApiOperation(value = "登陆成功的接口", notes = "返回登陆成功需要跳转的url")
+    public ResultMessage loginSuccess(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("user");
+        if (user != null) {
+            logger.info("User {} login success!", user.getLoginName());
+        }
+        return new ResultMessage(
+                ReturnCode.LOGIN_SUCCESS.getCode(),
+                ReturnCode.LOGIN_SUCCESS.getMessage(),
+                "/"
+        );
     }
 
     @ResponseBody
