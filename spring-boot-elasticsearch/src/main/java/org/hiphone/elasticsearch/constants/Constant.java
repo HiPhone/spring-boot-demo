@@ -23,4 +23,7 @@ public class Constant {
 
     public static final String SWAGGER_VERSION = "1.0.0";
 
+    public static final String BAD_REQUEST_MSG = "400 Bad Request";
+
+    public static final String NOT_FOUND = "404 Not Found";
 }

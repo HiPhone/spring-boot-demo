@@ -12,6 +12,8 @@
         <java.version>11</java.version>
         <fastjson.version>1.2.49</fastjson.version>
         <swagger.version>2.9.2</swagger.version>
+        <httpcore.version>4.4.10</httpcore.version>
+        <httpclient.version>4.5.6</httpclient.version>
     </properties>
 
     <parent>
@@ -55,6 +57,18 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>${httpcore.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${httpclient.version}</version>
         </dependency>
 
 
