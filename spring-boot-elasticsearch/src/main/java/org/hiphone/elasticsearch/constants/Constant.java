@@ -26,4 +26,6 @@ public class Constant {
     public static final String BAD_REQUEST_MSG = "400 Bad Request";
 
     public static final String NOT_FOUND = "404 Not Found";
+
+    public static final String ES_UPDATE_END = "_update";
 }
