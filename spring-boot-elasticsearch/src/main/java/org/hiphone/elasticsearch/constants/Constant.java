@@ -9,7 +9,7 @@ public class Constant {
 
     public static final String SWAGGER_BASE_PACKAGE = "org.hiphone.elasticsearch";
 
-    public static final String SWAGGER_TITLE = "Spring-Boot-Demo RESTful API 文档";
+    public static final String SWAGGER_TITLE = "Spring-Boot-elasticsearch RESTful API 文档";
 
     public static final String SWAGGER_DESCRIPTION = "Spring boot elasticsearch";
 
@@ -28,4 +28,6 @@ public class Constant {
     public static final String NOT_FOUND = "404 Not Found";
 
     public static final String ES_UPDATE_END = "_update";
+
+    public static final String DEFAULT_ES_TYPE = "doc";
 }

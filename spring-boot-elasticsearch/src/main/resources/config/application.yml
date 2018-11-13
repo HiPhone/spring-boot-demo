@@ -5,3 +5,9 @@ spring:
     name: spring-boot-elasticsearch
 elasticsearch:
   rest-url: http://192.168.100.8:9200
+  ips: 192.168.100.8
+  pool-size: 50
+  cluster:
+    name: elasticsearch
+  tcp:
+    port: 9300
