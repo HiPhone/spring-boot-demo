@@ -38,4 +38,64 @@ public class EsTransportServiceImpl implements EsTransportService {
         }
         return resultMessage;
     }
+
+    @Override
+    public ResultMessage getDataById(String indexName, String id) {
+        ResultMessage resultMessage;
+
+        try {
+            resultMessage = new ResultMessage(
+                    ReturnCode.SUCCESS.getCode(),
+                    ReturnCode.SUCCESS.getMessage(),
+                    ESUtil.getDataById(transportClient, indexName, id)
+            );
+        } catch (Exception e) {
+            resultMessage = new ResultMessage(
+                    ReturnCode.UNKNOWN_ERROR.getCode(),
+                    ReturnCode.UNKNOWN_ERROR.getMessage(),
+                    e.getMessage()
+            );
+        }
+        return resultMessage;
+    }
+
+    @Override
+    public ResultMessage updateDataById(String indexName, String id, JSONObject data) {
+        ResultMessage resultMessage;
+
+        try {
+            resultMessage = new ResultMessage(
+                    ReturnCode.SUCCESS.getCode(),
+                    ReturnCode.SUCCESS.getMessage(),
+                    ESUtil.updateDataById(transportClient, indexName, id, data)
+            );
+        } catch (Exception e) {
+            resultMessage = new ResultMessage(
+                    ReturnCode.UNKNOWN_ERROR.getCode(),
+                    ReturnCode.UNKNOWN_ERROR.getMessage(),
+                    e.getMessage()
+            );
+        }
+        return resultMessage;
+    }
+
+    @Override
+    public ResultMessage deleteDataById(String indexName, String id) {
+        ResultMessage resultMessage;
+
+        try {
+            resultMessage = new ResultMessage(
+                    ReturnCode.SUCCESS.getCode(),
+                    ReturnCode.SUCCESS.getMessage(),
+                    ESUtil.deleteDataById(transportClient, indexName, id)
+            );
+        } catch (Exception e) {
+            resultMessage = new ResultMessage(
+                    ReturnCode.UNKNOWN_ERROR.getCode(),
+                    ReturnCode.UNKNOWN_ERROR.getMessage(),
+                    e.getMessage()
+            );
+        }
+        return resultMessage;
+    }
 }
