@@ -1,0 +1,17 @@
+logging:
+  config: classpath:config/log4j2.xml
+spring:
+  application:
+    name: spring-boot-redis
+  redis:
+    database: 0
+    host: 192.168.100.8
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-idle: 8      #最大空闲数
+        min-idle: 0      #最小空闲数
+        max-active: 8    #连接池最大数据库连接数
+        max-wait: -1     #最大建立连接等待时间
+    timeout: 5000        #客户端超时间
