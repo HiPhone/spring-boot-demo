@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 @Api(value = "UserController", description = "用户操作的Controller")
 public class UserController {
 
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+    private Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @ResponseBody
     @GetMapping("/")
@@ -31,12 +31,24 @@ public class UserController {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
-            logger.info("User {} login success!", user.getLoginName());
+            LOGGER.info("User {} login success!", user.getLoginName());
         }
         return new ResultMessage(
                 ReturnCode.SUCCESS.getCode(),
                 ReturnCode.SUCCESS.getMessage(),
                 System.currentTimeMillis());
+    }
+
+    @ResponseBody
+    @GetMapping("/login")
+    @ApiOperation(value = "登录信息验证失败返回接口", notes = "返回错误信息")
+    public ResultMessage loginError() {
+        LOGGER.info("login failed, returning error message");
+        return new ResultMessage(
+                ReturnCode.LOGIN_FAIL.getCode(),
+                ReturnCode.LOGIN_FAIL.getMessage(),
+                System.currentTimeMillis()
+        );
     }
 
     @ResponseBody
@@ -46,7 +58,7 @@ public class UserController {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
-            logger.info("User {} login success!", user.getLoginName());
+            LOGGER.info("User {} login success!", user.getLoginName());
         }
         return new ResultMessage(
                 ReturnCode.LOGIN_SUCCESS.getCode(),
@@ -62,12 +74,12 @@ public class UserController {
 
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
-        logger.info("Admin {} request the adminPage", user.getLoginName());
+        LOGGER.info("Admin {} request the adminPage", user.getLoginName());
 
         return new ResultMessage(
                 ReturnCode.SUCCESS.getCode(),
                 ReturnCode.SUCCESS.getMessage(),
-                "adminPage"
+                "欢迎您，系统管理员"
         );
     }
 
@@ -79,13 +91,13 @@ public class UserController {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
-            logger.info("DBA {} request the dbaPage", user.getLoginName());
+            LOGGER.info("DBA {} request the dbaPage", user.getLoginName());
         }
 
         return new ResultMessage(
                 ReturnCode.SUCCESS.getCode(),
                 ReturnCode.SUCCESS.getMessage(),
-                "dbaPage"
+                "欢迎您，数据库管理员"
         );
     }
 
@@ -97,13 +109,13 @@ public class UserController {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
-            logger.info("USER {} request the userPage", user.getLoginName());
+            LOGGER.info("USER {} request the userPage", user.getLoginName());
         }
 
         return new ResultMessage(
                 ReturnCode.SUCCESS.getCode(),
                 ReturnCode.SUCCESS.getMessage(),
-                "userPage"
+                "欢迎您，用户"
         );
     }
 }
