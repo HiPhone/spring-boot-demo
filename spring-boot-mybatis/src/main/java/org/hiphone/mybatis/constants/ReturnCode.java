@@ -1,5 +1,7 @@
 package org.hiphone.mybatis.constants;
 
+import lombok.Getter;
+
 /**
  * @author HiPhone
  */
@@ -15,9 +17,10 @@ public enum ReturnCode {
     UPDATE_ERROR(1007, "更新数据失败"),
     DELETE_ERROR(1008, "删除数据失败");
 
-
+    @Getter
     private String message;
 
+    @Getter
     private int code;
 
     private ReturnCode(int code, String message) {
@@ -25,11 +28,4 @@ public enum ReturnCode {
         this.message = message;
     }
 
-    public String getMessage() {
-        return this.message;
-    }
-
-    public int getCode() {
-        return this.code;
-    }
 }
