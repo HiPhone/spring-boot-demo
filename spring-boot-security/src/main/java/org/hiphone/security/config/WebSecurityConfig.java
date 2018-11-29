@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 /**
+ * spring security 配置类
  * @author HiPhone
  */
 @Configuration

@@ -2,11 +2,10 @@ package org.hiphone.security.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.hiphone.security.constants.ReturnCode;
 import org.hiphone.security.entitys.ResultMessage;
 import org.hiphone.security.entitys.UserDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,11 +17,10 @@ import javax.servlet.http.HttpSession;
 /**
  * @author HiPhone
  */
+@Slf4j
 @RestController
 @Api(value = "UserController", description = "用户操作的Controller")
 public class UserController {
-
-    private Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @ResponseBody
     @GetMapping("/")
@@ -31,7 +29,7 @@ public class UserController {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
-            LOGGER.info("User {} login success!", user.getLoginName());
+            log.info("User {} login success!", user.getLoginName());
         }
         return new ResultMessage(
                 ReturnCode.SUCCESS.getCode(),
@@ -43,7 +41,7 @@ public class UserController {
     @GetMapping("/login")
     @ApiOperation(value = "登录信息验证失败返回接口", notes = "返回错误信息")
     public ResultMessage loginError() {
-        LOGGER.info("login failed, returning error message");
+        log.info("login failed, returning error message");
         return new ResultMessage(
                 ReturnCode.LOGIN_FAIL.getCode(),
                 ReturnCode.LOGIN_FAIL.getMessage(),
@@ -58,7 +56,7 @@ public class UserController {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
-            LOGGER.info("User {} login success!", user.getLoginName());
+            log.info("User {} login success!", user.getLoginName());
         }
         return new ResultMessage(
                 ReturnCode.LOGIN_SUCCESS.getCode(),
@@ -74,7 +72,7 @@ public class UserController {
 
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
-        LOGGER.info("Admin {} request the adminPage", user.getLoginName());
+        log.info("Admin {} request the adminPage", user.getLoginName());
 
         return new ResultMessage(
                 ReturnCode.SUCCESS.getCode(),
@@ -91,7 +89,7 @@ public class UserController {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
-            LOGGER.info("DBA {} request the dbaPage", user.getLoginName());
+            log.info("DBA {} request the dbaPage", user.getLoginName());
         }
 
         return new ResultMessage(
@@ -109,7 +107,7 @@ public class UserController {
         HttpSession session = request.getSession();
         UserDTO user = (UserDTO) session.getAttribute("user");
         if (user != null) {
-            LOGGER.info("USER {} request the userPage", user.getLoginName());
+            log.info("USER {} request the userPage", user.getLoginName());
         }
 
         return new ResultMessage(

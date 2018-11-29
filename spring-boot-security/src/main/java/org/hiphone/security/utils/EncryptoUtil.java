@@ -1,5 +1,6 @@
 package org.hiphone.security.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.hiphone.security.constants.Constant;
@@ -13,10 +14,8 @@ import javax.crypto.spec.SecretKeySpec;
  * DES加密解密类
  * @author HiPhone
  */
+@Slf4j
 public class EncryptoUtil {
-
-    private static final Logger logger = LoggerFactory.getLogger(EncryptoUtil.class);
-
     /**
      * 对称加密字符串
      * @param text 需要加密的字符串
@@ -39,7 +38,7 @@ public class EncryptoUtil {
             byte[] cipherBytes = cipher.doFinal(byteText);
             desString = new String(Base64.encodeBase64(cipherBytes), Constant.ENCODE_TYPE);
         } catch (Exception e) {
-            logger.error("Encrypto gets error, please check it!");
+            log.error("Encrypto gets error, please check it!");
         }
         return desString;
     }
@@ -66,7 +65,7 @@ public class EncryptoUtil {
             byte[] cipherBytes = cipher.doFinal(byteText);
             desString = new String(cipherBytes, Constant.ENCODE_TYPE);
         } catch (Exception e) {
-            logger.error("Decrypto gets error, please check it!");
+            log.error("Decrypto gets error, please check it!");
         }
         return desString;
     }
