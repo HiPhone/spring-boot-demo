@@ -5,13 +5,11 @@ spring:
     name: spring-boot-redis
   redis:
     database: 0
-    host: 192.168.100.8
+    host: 192.168.41.128
     port: 6379
-    password:
-    jedis:
-      pool:
-        max-idle: 8      #最大空闲数
-        min-idle: 0      #最小空闲数
-        max-active: 8    #连接池最大数据库连接数
-        max-wait: -1     #最大建立连接等待时间
-    timeout: 5000        #客户端超时间
+    timeout: 5000
+    pool:
+      max-active: 200    #连接池最大数据库连接数
+      max-wait: -1       #连接池最大阻塞等待时间
+      max-idle: 8        #连接池中的最大空闲连接
+      min-idle: 0        #连接池中的最小空闲连接

@@ -1,5 +1,7 @@
 package org.hiphone.redis.constants;
 
+import lombok.Getter;
+
 /**
  * @author HiPhone
  */
@@ -10,21 +12,15 @@ public enum ReturnCode {
     UNAUTHORIZED(1001, "服务调用未授权"),
     BUSY_ERROR(1004, "服务繁忙，请稍后尝试");
 
-
+    @Getter
     private String message;
 
+    @Getter
     private int code;
 
-    private ReturnCode(int code, String message) {
+    ReturnCode(int code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public String getMessage() {
-        return this.message;
-    }
-
-    public int getCode() {
-        return this.code;
-    }
 }

@@ -12,6 +12,8 @@
         <java.version>11</java.version>
         <fastjson.version>1.2.49</fastjson.version>
         <swagger.version>2.9.2</swagger.version>
+        <lombok.version>1.18.4</lombok.version>
+        <jedis.version>2.9.0</jedis.version>
     </properties>
 
     <parent>
@@ -32,6 +34,18 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
         <!-- swagger dependency -->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -49,11 +63,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <dependency>
