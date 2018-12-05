@@ -1,23 +1,22 @@
 package org.hiphone.elasticsearch.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
+/**
+ * @author HiPhone
+ */
+@Slf4j
 @Configuration
 public class EsConfig {
-
-    private static final Logger logger = LoggerFactory.getLogger(EsConfig.class);
 
     @Value("${elasticsearch.ips}")
     private String hostIps;
@@ -50,9 +49,9 @@ public class EsConfig {
                 TransportAddress transportAddress = new TransportAddress(InetAddress.getByName(hostIp), port);
                 transportClient.addTransportAddress(transportAddress);
             }
-            logger.info("Creating elasticsearch transportClient success");
+            log.info("Creating elasticsearch transportClient success");
         } catch (Exception e) {
-            logger.error("Creating elsastic search transportClient gets error!", e);
+            log.error("Creating elsastic search transportClient gets error!", e);
         }
         return transportClient;
     }

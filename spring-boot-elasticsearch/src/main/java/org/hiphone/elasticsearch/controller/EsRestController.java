@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.hiphone.elasticsearch.entitys.ResultMessage;
 import org.hiphone.elasticsearch.service.EsRestService;
 import org.slf4j.Logger;
@@ -16,12 +17,11 @@ import java.util.Map;
 /**
  * @author HiPhone
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/es")
 @Api(value = "EsRestController", description = "使用RESTful操作Es的Controller")
 public class EsRestController {
-
-    private static final Logger logger = LoggerFactory.getLogger(EsRestController.class);
 
     @Autowired
     private EsRestService esRestService;
@@ -31,7 +31,7 @@ public class EsRestController {
     @ApiOperation(value = "添加es的索引和类型的接口", notes = "发起PUT请求增加索引和类型")
     public ResultMessage generateIndex(@RequestParam(name = "indexName") @ApiParam(name = "indexName", value = "索引名称") String indexName,
                                        @RequestBody @ApiParam(name = "mappings", value = "ES索引结构的demo") JSONObject mappings) {
-        logger.info("Received a request for creating a new index, index name is: {}, mappings is {}", indexName, mappings);
+        log.info("Received a request for creating a new index, index name is: {}, mappings is {}", indexName, mappings);
         return esRestService.createEsMapping(indexName, mappings);
     }
 
@@ -39,7 +39,7 @@ public class EsRestController {
     @DeleteMapping("/index/delete/{indexName}")
     @ApiOperation(value = "删除es的索引", notes = "根据索引名发起请求删除ES中的索引")
     public ResultMessage deleteIndex(@PathVariable(value = "indexName") @ApiParam(name = "indexName", value = "索引名称") String indexName) {
-        logger.info("Received a request for deleting index, index name is: {}", indexName);
+        log.info("Received a request for deleting index, index name is: {}", indexName);
         return esRestService.deleteEsMapping(indexName);
     }
 
@@ -49,7 +49,7 @@ public class EsRestController {
     public ResultMessage addDataToIndex(@PathVariable(value = "indexName") @ApiParam(name = "indexName", value = "索引名称") String indexName,
                                         @PathVariable(value = "type") @ApiParam(name = "type", value = "文档存放的类型") String type,
                                         @RequestBody @ApiParam(name = "data", value = "添加的数据") Map<String, String> data) {
-        logger.info("Received a request for adding a new data to index: {}, type is {}, data is {}", indexName, type, data);
+        log.info("Received a request for adding a new data to index: {}, type is {}, data is {}", indexName, type, data);
         return esRestService.addDataToIndex(indexName, type, data);
     }
 
@@ -59,7 +59,7 @@ public class EsRestController {
     public ResultMessage deleteDataFromIndex(@PathVariable(value = "indexName") @ApiParam(name = "indexName", value = "索引名称") String indexName,
                                              @PathVariable(value = "type") @ApiParam(name = "type", value = "文档存放的类型") String type,
                                              @PathVariable(value = "id") @ApiParam(name = "id", value = "需要删除的文档的id") String id) {
-        logger.info("Received a request for deleting data from index: {}, type: {}, data's id is {}", indexName, type, id);
+        log.info("Received a request for deleting data from index: {}, type: {}, data's id is {}", indexName, type, id);
         return esRestService.deleteDataFromIndex(indexName, type, id);
     }
 
@@ -70,7 +70,7 @@ public class EsRestController {
                                              @PathVariable(value = "type") @ApiParam(name = "type", value = "文档存放的类型") String type,
                                              @PathVariable(value = "id") @ApiParam(name = "id", value = "文档的id") String id,
                                              @RequestBody @ApiParam(name = "data", value = "新的数据") Map<String, String> data) {
-        logger.info("Received a request for updating data from index: {}, type: {}, data's id is {}, new data is {}", indexName, type, id, data);
+        log.info("Received a request for updating data from index: {}, type: {}, data's id is {}, new data is {}", indexName, type, id, data);
         return esRestService.updateDataFromIndex(indexName, type, id, data);
     }
 }

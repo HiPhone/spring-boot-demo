@@ -6,6 +6,7 @@ import org.elasticsearch.action.DocWriteResponse;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
@@ -84,7 +85,7 @@ public class ESUtil {
      * @param client transport client
      * @param indexName 索引名称
      * @param id 要删除的数据的id
-     * @return resultMessage
+     * @return 删除的结果
      */
     public static String deleteDataById(TransportClient client, String indexName, String id) {
         DeleteResponse response = client.prepareDelete(indexName, Constant.DEFAULT_ES_TYPE, id)
@@ -92,4 +93,22 @@ public class ESUtil {
                 .actionGet();
         return response.getResult().toString();
     }
+
+    /**
+     * 计算索引中的数据的数量
+     * @param client transport client
+     * @param indexName 索引名称
+     * @return 数据的数量
+     */
+    public static long count(TransportClient client, String indexName) {
+        SearchResponse response = client.prepareSearch(indexName)
+                .setFetchSource(false)
+                .setSize(0)
+                .setTypes(Constant.DEFAULT_ES_TYPE)
+                .execute()
+                .actionGet();
+        return response.getHits().getTotalHits();
+    }
+
+
 }
