@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
@@ -36,15 +37,16 @@ public class JedisConfig extends CachingConfigurerSupport {
     @Value("${spring.redis.pool.max-wait}")
     private long maxWait;
 
+
     @Bean
-    public JedisPool redisPoolFactory() {
+    public Jedis jedis() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(maxIdle);
         jedisPoolConfig.setMaxWaitMillis(maxWait);
         jedisPoolConfig.setMaxTotal(maxActive);
         jedisPoolConfig.setMinIdle(minIdle);
-        log.info("Jedis initial success");
-        return new JedisPool(jedisPoolConfig, host, port, timeout, null);
+        log.info("Redis connected...");
+        return new JedisPool(jedisPoolConfig, host, port, timeout, null).getResource();
     }
 
 }
