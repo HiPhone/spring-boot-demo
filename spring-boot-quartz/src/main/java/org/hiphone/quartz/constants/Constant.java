@@ -23,4 +23,10 @@ public class Constant {
 
     public static final String SWAGGER_VERSION = "1.0.0";
 
+    public static final String BASE64_KEY = "hcFKesGkfEkECB951q7VDoXBSnrBpHxJ";
+
+    public static final String ENCRYPT_TYPE = "DESede";
+
+    public static final String ENCODE_TYPE = "UTF-8";
+
 }
