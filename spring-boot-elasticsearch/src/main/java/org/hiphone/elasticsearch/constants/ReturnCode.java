@@ -20,7 +20,7 @@ public enum ReturnCode {
     @Getter
     private int code;
 
-     ReturnCode(int code, String message) {
+    ReturnCode(int code, String message) {
         this.code = code;
         this.message = message;
     }
