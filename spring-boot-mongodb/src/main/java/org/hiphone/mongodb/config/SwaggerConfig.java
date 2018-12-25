@@ -1,6 +1,6 @@
-package org.hiphone.quartz.config;
+package org.hiphone.mongodb.config;
 
-import org.hiphone.quartz.constants.Constant;
+import org.hiphone.mongodb.constants.Constant;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;

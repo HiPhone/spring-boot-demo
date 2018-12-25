@@ -1,4 +1,4 @@
-package org.hiphone.quartz;
+package org.hiphone.mongodb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

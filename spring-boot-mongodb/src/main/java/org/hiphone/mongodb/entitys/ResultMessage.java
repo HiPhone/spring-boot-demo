@@ -1,4 +1,4 @@
-package org.hiphone.quartz.entitys;
+package org.hiphone.mongodb.entitys;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

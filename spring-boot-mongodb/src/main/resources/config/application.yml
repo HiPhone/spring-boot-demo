@@ -2,4 +2,4 @@ logging:
   config: classpath:config/log4j2.xml
 spring:
   application:
-    name: spring-boot-quartz
+    name: spring-boot-mongodb

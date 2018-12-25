@@ -1,17 +1,15 @@
-package org.hiphone.quartz.constants;
+package org.hiphone.mongodb.constants;
 
 /**
  * @author HiPhone
  */
 public class Constant {
 
-    public static final Integer TIMEOUT_VALUE = 5000;
-
-    public static final String SWAGGER_BASE_PACKAGE = "org.hiphone.quartz";
+    public static final String SWAGGER_BASE_PACKAGE = "org.hiphone.mongodb";
 
     public static final String SWAGGER_TITLE = "Spring-Boot-Demo RESTful API 文档";
 
-    public static final String SWAGGER_DESCRIPTION = "Spring boot quartz";
+    public static final String SWAGGER_DESCRIPTION = "Spring boot mongodb";
 
     public static final String SWAGGER_SERVICE_URL = "http://localhost:8080";
 

@@ -1,10 +1,10 @@
-package org.hiphone.quartz.controller;
+package org.hiphone.mongodb.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.hiphone.quartz.constants.ReturnCode;
-import org.hiphone.quartz.entitys.ResultMessage;
+import org.hiphone.mongodb.constants.ReturnMsg;
+import org.hiphone.mongodb.entitys.ResultMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,8 +28,8 @@ public class TestController {
         log.info("Receive a request for testing " + applicationName);
 
         return new ResultMessage(
-                ReturnCode.SUCCESS.getCode(),
-                ReturnCode.SUCCESS.getMessage(),
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
                 applicationName + " is alive");
     }
 

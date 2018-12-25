@@ -4,7 +4,7 @@
 
     <Properties>
         <Property name="LOG_HOME">E:\\logs</Property>
-        <property name="PROJECT_NAME">spring-boot-quartz</property>
+        <property name="PROJECT_NAME">spring-boot-mongodb</property>
     </Properties>
 
     <Appenders>
