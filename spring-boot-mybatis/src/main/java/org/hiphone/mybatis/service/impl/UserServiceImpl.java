@@ -1,7 +1,7 @@
 package org.hiphone.mybatis.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hiphone.mybatis.constants.ReturnCode;
+import org.hiphone.mybatis.constants.ReturnMsg;
 import org.hiphone.mybatis.entitys.UserDTO;
 import org.hiphone.mybatis.mapper.UserMapper;
 import org.hiphone.mybatis.model.ResultMessage;
@@ -26,14 +26,14 @@ public class UserServiceImpl implements UserService {
         ResultMessage resultMessage;
 
         try {
-            resultMessage = new ResultMessage(ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     userMapper.listAllUserData());
             log.error("query all user data from database success");
         } catch (Exception e) {
             log.error("database get error, message is {}", e.getMessage());
-            resultMessage = new ResultMessage(ReturnCode.SQL_ERROR.getCode(),
-                    ReturnCode.SQL_ERROR.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.SQL_ERROR.getCode(),
+                    ReturnMsg.SQL_ERROR.getMessage(),
                     e.getMessage());
         }
 
@@ -45,14 +45,14 @@ public class UserServiceImpl implements UserService {
         ResultMessage resultMessage;
 
         try {
-            resultMessage = new ResultMessage(ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     userMapper.getUserById(id));
             log.error("query user data by id from database success");
         } catch (Exception e) {
             log.error("database get error, message is {}", e.getMessage());
-            resultMessage = new ResultMessage(ReturnCode.SQL_ERROR.getCode(),
-                    ReturnCode.SQL_ERROR.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.SQL_ERROR.getCode(),
+                    ReturnMsg.SQL_ERROR.getMessage(),
                     e.getMessage());
         }
 
@@ -64,14 +64,14 @@ public class UserServiceImpl implements UserService {
         ResultMessage resultMessage;
 
         try {
-            resultMessage = new ResultMessage(ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     userMapper.deleteUserById(id));
             log.error("delete user data by id from database success");
         } catch (Exception e) {
             log.error("database get error, message is {}", e.getMessage());
-            resultMessage = new ResultMessage(ReturnCode.DELETE_ERROR.getCode(),
-                    ReturnCode.DELETE_ERROR.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.DELETE_ERROR.getCode(),
+                    ReturnMsg.DELETE_ERROR.getMessage(),
                     e.getMessage());
         }
 
@@ -83,14 +83,14 @@ public class UserServiceImpl implements UserService {
         ResultMessage resultMessage;
 
         try {
-            resultMessage = new ResultMessage(ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     userMapper.insertNewUser(user));
             log.error("insert new user data into database success");
         } catch (Exception e) {
             log.error("insert user data get error, message is {}", e.getMessage());
-            resultMessage = new ResultMessage(ReturnCode.INSERT_ERROR.getCode(),
-                    ReturnCode.INSERT_ERROR.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.INSERT_ERROR.getCode(),
+                    ReturnMsg.INSERT_ERROR.getMessage(),
                     e.getMessage());
         }
 
@@ -103,14 +103,14 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(new Date(System.currentTimeMillis()));
 
         try {
-            resultMessage = new ResultMessage(ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     userMapper.updateUserById(user));
             log.error("update user data into database success");
         } catch (Exception e) {
             log.error("update user data get error, message is {}", e.getMessage());
-            resultMessage = new ResultMessage(ReturnCode.UPDATE_ERROR.getCode(),
-                    ReturnCode.UPDATE_ERROR.getMessage(),
+            resultMessage = new ResultMessage(ReturnMsg.UPDATE_ERROR.getCode(),
+                    ReturnMsg.UPDATE_ERROR.getMessage(),
                     e.getMessage());
         }
 

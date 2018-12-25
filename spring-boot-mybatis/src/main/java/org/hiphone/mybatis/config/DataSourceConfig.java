@@ -1,13 +1,10 @@
 package org.hiphone.mybatis.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.apache.commons.lang3.StringUtils;
-import org.hiphone.mybatis.constants.Constant;
-import org.hiphone.mybatis.utils.EncryptoUtil;
+import org.hiphone.mybatis.utils.EncryptUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
 
@@ -72,7 +69,7 @@ public class DataSourceConfig {
 
         dataSource.setUrl(dbUrl);
         dataSource.setUsername(username);
-        dataSource.setPassword(EncryptoUtil.decryptoStringByBase64(password, Constant.BASE64_KEY));
+        dataSource.setPassword(EncryptUtil.decryptStringByBase64(password));
         dataSource.setDbType(dbType);
         dataSource.setDriverClassName(driverClassName);
 

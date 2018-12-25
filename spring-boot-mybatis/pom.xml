@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.hiphone</groupId>
-    <artifactId>spring-mybatis</artifactId>
+    <artifactId>spring-boot-mybatis</artifactId>
     <version>1.0.0</version>
 
     <properties>
