@@ -2,7 +2,7 @@ package org.hiphone.elasticsearch.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.elasticsearch.client.transport.TransportClient;
-import org.hiphone.elasticsearch.constants.ReturnCode;
+import org.hiphone.elasticsearch.constants.ReturnMsg;
 import org.hiphone.elasticsearch.entitys.ResultMessage;
 import org.hiphone.elasticsearch.service.EsTransportService;
 import org.hiphone.elasticsearch.utils.ESUtil;
@@ -24,15 +24,15 @@ public class EsTransportServiceImpl implements EsTransportService {
 
         try {
             resultMessage = new ResultMessage(
-                    ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+                    ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     ESUtil.insert(transportClient, indexName, data)
             );
 
         } catch (Exception e) {
             resultMessage = new ResultMessage(
-                    ReturnCode.UNKNOWN_ERROR.getCode(),
-                    ReturnCode.UNKNOWN_ERROR.getMessage(),
+                    ReturnMsg.UNKNOWN_ERROR.getCode(),
+                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
                     e.getMessage()
             );
         }
@@ -45,14 +45,14 @@ public class EsTransportServiceImpl implements EsTransportService {
 
         try {
             resultMessage = new ResultMessage(
-                    ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+                    ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     ESUtil.getDataById(transportClient, indexName, id)
             );
         } catch (Exception e) {
             resultMessage = new ResultMessage(
-                    ReturnCode.UNKNOWN_ERROR.getCode(),
-                    ReturnCode.UNKNOWN_ERROR.getMessage(),
+                    ReturnMsg.UNKNOWN_ERROR.getCode(),
+                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
                     e.getMessage()
             );
         }
@@ -65,14 +65,14 @@ public class EsTransportServiceImpl implements EsTransportService {
 
         try {
             resultMessage = new ResultMessage(
-                    ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+                    ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     ESUtil.updateDataById(transportClient, indexName, id, data)
             );
         } catch (Exception e) {
             resultMessage = new ResultMessage(
-                    ReturnCode.UNKNOWN_ERROR.getCode(),
-                    ReturnCode.UNKNOWN_ERROR.getMessage(),
+                    ReturnMsg.UNKNOWN_ERROR.getCode(),
+                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
                     e.getMessage()
             );
         }
@@ -85,14 +85,14 @@ public class EsTransportServiceImpl implements EsTransportService {
 
         try {
             resultMessage = new ResultMessage(
-                    ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+                    ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     ESUtil.deleteDataById(transportClient, indexName, id)
             );
         } catch (Exception e) {
             resultMessage = new ResultMessage(
-                    ReturnCode.UNKNOWN_ERROR.getCode(),
-                    ReturnCode.UNKNOWN_ERROR.getMessage(),
+                    ReturnMsg.UNKNOWN_ERROR.getCode(),
+                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
                     e.getMessage()
             );
         }

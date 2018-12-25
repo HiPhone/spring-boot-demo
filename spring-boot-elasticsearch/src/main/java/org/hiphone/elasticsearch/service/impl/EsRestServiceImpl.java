@@ -2,7 +2,7 @@ package org.hiphone.elasticsearch.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.hiphone.elasticsearch.constants.Constant;
-import org.hiphone.elasticsearch.constants.ReturnCode;
+import org.hiphone.elasticsearch.constants.ReturnMsg;
 import org.hiphone.elasticsearch.entitys.ResultMessage;
 import org.hiphone.elasticsearch.service.EsRestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,21 +36,21 @@ public class EsRestServiceImpl implements EsRestService {
         try {
             JSONObject result = restTemplate.exchange(requestUrl, HttpMethod.PUT, this.constructHttpEntity(mappings), JSONObject.class).getBody();
             resultMessage = new ResultMessage(
-                    ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+                    ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     result
             );
         } catch (Exception e) {
             if (Constant.BAD_REQUEST_MSG.equals(e.getMessage())) {
                 resultMessage = new ResultMessage(
-                        ReturnCode.INDEX_EXISTS.getCode(),
-                        ReturnCode.INDEX_EXISTS.getMessage(),
+                        ReturnMsg.INDEX_EXISTS.getCode(),
+                        ReturnMsg.INDEX_EXISTS.getMessage(),
                         e.getMessage()
                 );
             } else {
                 resultMessage = new ResultMessage(
-                        ReturnCode.UNKNOWN_ERROR.getCode(),
-                        ReturnCode.UNKNOWN_ERROR.getMessage(),
+                        ReturnMsg.UNKNOWN_ERROR.getCode(),
+                        ReturnMsg.UNKNOWN_ERROR.getMessage(),
                         e.getMessage()
                 );
             }
@@ -74,14 +74,14 @@ public class EsRestServiceImpl implements EsRestService {
         try {
             JSONObject result = restTemplate.exchange(requestUrl, HttpMethod.PUT, this.constructHttpEntity(data), JSONObject.class).getBody();
             resultMessage = new ResultMessage(
-                    ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+                    ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     result
             );
         } catch (Exception e) {
             resultMessage = new ResultMessage(
-                    ReturnCode.UNKNOWN_ERROR.getCode(),
-                    ReturnCode.UNKNOWN_ERROR.getMessage(),
+                    ReturnMsg.UNKNOWN_ERROR.getCode(),
+                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
                     e.getMessage()
             );
         }
@@ -104,14 +104,14 @@ public class EsRestServiceImpl implements EsRestService {
         try {
             JSONObject result = restTemplate.exchange(requestUrl, HttpMethod.POST, this.constructHttpEntity(updateData), JSONObject.class).getBody();
             resultMessage = new ResultMessage(
-                    ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+                    ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     result
             );
         } catch (Exception e) {
             resultMessage = new ResultMessage(
-                    ReturnCode.UNKNOWN_ERROR.getCode(),
-                    ReturnCode.UNKNOWN_ERROR.getMessage(),
+                    ReturnMsg.UNKNOWN_ERROR.getCode(),
+                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
                     e.getMessage()
             );
         }
@@ -123,21 +123,21 @@ public class EsRestServiceImpl implements EsRestService {
         try {
             JSONObject result = restTemplate.exchange(requestUrl, HttpMethod.DELETE, this.constructHttpEntity(null), JSONObject.class).getBody();
             resultMessage = new ResultMessage(
-                    ReturnCode.SUCCESS.getCode(),
-                    ReturnCode.SUCCESS.getMessage(),
+                    ReturnMsg.SUCCESS.getCode(),
+                    ReturnMsg.SUCCESS.getMessage(),
                     result
             );
         } catch (Exception e) {
             if (Constant.NOT_FOUND.equals(e.getMessage())) {
                 resultMessage = new ResultMessage(
-                        ReturnCode.INDEX_NOT_FOUND.getCode(),
-                        ReturnCode.INDEX_NOT_FOUND.getMessage(),
+                        ReturnMsg.INDEX_NOT_FOUND.getCode(),
+                        ReturnMsg.INDEX_NOT_FOUND.getMessage(),
                         e.getMessage()
                 );
             } else {
                 resultMessage = new ResultMessage(
-                        ReturnCode.UNKNOWN_ERROR.getCode(),
-                        ReturnCode.UNKNOWN_ERROR.getMessage(),
+                        ReturnMsg.UNKNOWN_ERROR.getCode(),
+                        ReturnMsg.UNKNOWN_ERROR.getMessage(),
                         e.getMessage()
                 );
             }
