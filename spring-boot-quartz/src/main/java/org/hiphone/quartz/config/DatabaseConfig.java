@@ -1,8 +1,7 @@
 package org.hiphone.quartz.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import org.hiphone.quartz.constants.Constant;
-import org.hiphone.quartz.utils.EncryptoUtil;
+import org.hiphone.quartz.utils.EncryptUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -70,7 +69,7 @@ public class DatabaseConfig {
 
         dataSource.setUrl(dbUrl);
         dataSource.setUsername(username);
-        dataSource.setPassword(EncryptoUtil.decryptoStringByBase64(password, Constant.BASE64_KEY));
+        dataSource.setPassword(EncryptUtil.decryptStringByBase64(password));
         dataSource.setDbType(dbType);
         dataSource.setDriverClassName(driverClassName);
 

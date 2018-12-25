@@ -2,7 +2,7 @@ package org.hiphone.quartz.config;
 
 import org.hiphone.quartz.constants.Constant;
 import org.hiphone.quartz.task.TestJob;
-import org.hiphone.quartz.utils.EncryptoUtil;
+import org.hiphone.quartz.utils.EncryptUtil;
 import org.quartz.*;
 import org.quartz.ee.servlet.QuartzInitializerListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +92,7 @@ public class QuartzConfig {
         properties.setProperty("org.quartz.dataSource.qzDS.driver", driver);
         properties.setProperty("org.quartz.dataSource.qzDS.URL", url);
         properties.setProperty("org.quartz.dataSource.qzDS.user", user);
-        properties.setProperty("org.quartz.dataSource.qzDS.password", EncryptoUtil.decryptoStringByBase64(password, Constant.BASE64_KEY));
+        properties.setProperty("org.quartz.dataSource.qzDS.password", EncryptUtil.decryptStringByBase64(password));
         properties.setProperty("org.quartz.dataSource.qzDS.maxConnections", maxConnections);
         properties.setProperty("org.quartz.jobStore.useProperties", "true");
         return properties;

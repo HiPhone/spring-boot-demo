@@ -5,8 +5,6 @@ package org.hiphone.quartz.constants;
  */
 public class Constant {
 
-    public static final Integer TIMEOUT_VALUE = 5000;
-
     public static final String SWAGGER_BASE_PACKAGE = "org.hiphone.quartz";
 
     public static final String SWAGGER_TITLE = "Spring-Boot-Demo RESTful API 文档";

@@ -1,7 +1,6 @@
 package org.hiphone.quartz.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.hiphone.quartz.constants.Constant;
 
@@ -9,19 +8,15 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 @Slf4j
-public class EncryptoUtil {
+public class EncryptUtil {
 
     /**
      * 对称加密字符串
      * @param text 需要加密的字符串
-     * @param base64Key 对称加密的key
      * @return 加密后的值
      */
-    public static String encryptStringByBase64(String text, String base64Key) {
-        if (StringUtils.isEmpty(base64Key)) {
-            base64Key = Constant.BASE64_KEY;
-        }
-        byte[] decodedString = Base64.decodeBase64(base64Key);
+    public static String encryptStringByBase64(String text) {
+        byte[] decodedString = Base64.decodeBase64(Constant.BASE64_KEY);
         SecretKeySpec secretKeySpec = new SecretKeySpec(decodedString, Constant.ENCRYPT_TYPE);
 
         String desString = null;
@@ -33,7 +28,7 @@ public class EncryptoUtil {
             byte[] cipherBytes = cipher.doFinal(byteText);
             desString = new String(Base64.encodeBase64(cipherBytes), Constant.ENCODE_TYPE);
         } catch (Exception e) {
-            log.error("Encrypto gets error, please check it!");
+            log.error("Encrypt gets error, please check it!");
         }
         return desString;
     }
@@ -41,14 +36,10 @@ public class EncryptoUtil {
     /**
      * 对称解密字符串
      * @param text 需要解密的字符串
-     * @param base64key 对称加密的key
      * @return 解密后的值
      */
-    public static String decryptoStringByBase64(String text, String base64key) {
-        if (StringUtils.isEmpty(base64key)) {
-            base64key = Constant.BASE64_KEY;
-        }
-        byte[] decodedString = Base64.decodeBase64(base64key);
+    public static String decryptStringByBase64(String text) {
+        byte[] decodedString = Base64.decodeBase64(Constant.BASE64_KEY);
         SecretKeySpec secretKeySpec = new SecretKeySpec(decodedString, Constant.ENCRYPT_TYPE);
 
         String desString = null;
@@ -60,7 +51,7 @@ public class EncryptoUtil {
             byte[] cipherBytes = cipher.doFinal(byteText);
             desString = new String(cipherBytes, Constant.ENCODE_TYPE);
         } catch (Exception e) {
-            log.error("Decrypto gets error, please check it!");
+            log.error("Decrypt gets error, please check it!");
         }
         return desString;
     }

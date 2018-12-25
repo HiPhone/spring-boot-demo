@@ -5,7 +5,7 @@ import lombok.Getter;
 /**
  * @author HiPhone
  */
-public enum ReturnCode {
+public enum ReturnMsg {
 
     SUCCESS(0, "服务调用成功"),
     UNKNOWN_ERROR(9999, "未知错误请排查"),
@@ -18,7 +18,7 @@ public enum ReturnCode {
     @Getter
     private int code;
 
-    ReturnCode(int code, String message) {
+    ReturnMsg(int code, String message) {
         this.code = code;
         this.message = message;
     }
