@@ -5,7 +5,6 @@ package org.hiphone.redis.constants;
  */
 public class Constant {
 
-    public static final Integer TIMEOUT_VALUE = 5000;
 
     public static final String SWAGGER_BASE_PACKAGE = "org.hiphone.redis";
 

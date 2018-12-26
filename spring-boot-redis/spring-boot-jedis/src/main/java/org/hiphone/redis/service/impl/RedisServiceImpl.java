@@ -1,6 +1,6 @@
 package org.hiphone.redis.service.impl;
 
-import org.hiphone.redis.constants.ReturnCode;
+import org.hiphone.redis.constants.ReturnMsg;
 import org.hiphone.redis.entitys.ResultMessage;
 import org.hiphone.redis.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +19,15 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public ResultMessage getStringByKey(String key) {
-        return new ResultMessage(ReturnCode.SUCCESS.getCode(),
-                ReturnCode.SUCCESS.getMessage(),
+        return new ResultMessage(ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
                 jedis.get(key));
     }
 
     @Override
     public ResultMessage setStringByKey(String key, String value) {
-        return new ResultMessage(ReturnCode.SUCCESS.getCode(),
-                ReturnCode.SUCCESS.getMessage(),
+        return new ResultMessage(ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
                 jedis.set(key, value));
     }
 }
