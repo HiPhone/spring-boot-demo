@@ -3,7 +3,7 @@ package org.hiphone.redis.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.hiphone.redis.constants.ReturnMsg;
+import org.hiphone.redis.exception.ReturnMsg;
 import org.hiphone.redis.entitys.ResultMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

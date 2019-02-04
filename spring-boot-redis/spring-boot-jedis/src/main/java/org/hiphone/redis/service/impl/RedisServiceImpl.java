@@ -1,6 +1,6 @@
 package org.hiphone.redis.service.impl;
 
-import org.hiphone.redis.constants.ReturnMsg;
+import org.hiphone.redis.exception.ReturnMsg;
 import org.hiphone.redis.entitys.ResultMessage;
 import org.hiphone.redis.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;

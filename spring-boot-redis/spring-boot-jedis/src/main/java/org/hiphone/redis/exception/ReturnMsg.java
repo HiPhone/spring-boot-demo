@@ -1,4 +1,4 @@
-package org.hiphone.redis.constants;
+package org.hiphone.redis.exception;
 
 import lombok.Getter;
 
