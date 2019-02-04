@@ -4,8 +4,8 @@ spring:
   application:
     name: spring-boot-elasticsearch
 elasticsearch:
-  rest-url: http://192.168.100.8:9200
-  ips: 192.168.100.8
+  rest-url: http://192.168.41.128:9200
+  ips: 192.168.41.128
   pool-size: 50
   cluster:
     name: elasticsearch

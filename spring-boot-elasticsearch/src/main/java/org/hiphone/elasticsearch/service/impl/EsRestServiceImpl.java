@@ -2,8 +2,8 @@ package org.hiphone.elasticsearch.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.hiphone.elasticsearch.constants.Constant;
-import org.hiphone.elasticsearch.constants.ReturnMsg;
 import org.hiphone.elasticsearch.entitys.ResultMessage;
+import org.hiphone.elasticsearch.exception.ReturnMsg;
 import org.hiphone.elasticsearch.service.EsRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
@@ -32,32 +31,11 @@ public class EsRestServiceImpl implements EsRestService {
     @Override
     public ResultMessage createEsMapping(String indexName, JSONObject mappings) {
         String requestUrl = this.constructRequestUrl(indexName, null, null, null);
-        ResultMessage resultMessage;
-        try {
-            JSONObject result = restTemplate.exchange(requestUrl, HttpMethod.PUT, this.constructHttpEntity(mappings), JSONObject.class).getBody();
-            resultMessage = new ResultMessage(
-                    ReturnMsg.SUCCESS.getCode(),
-                    ReturnMsg.SUCCESS.getMessage(),
-                    result
-            );
-        } catch (Exception e) {
-            if (Constant.BAD_REQUEST_MSG.equals(e.getMessage())) {
-                resultMessage = new ResultMessage(
-                        ReturnMsg.INDEX_EXISTS.getCode(),
-                        ReturnMsg.INDEX_EXISTS.getMessage(),
-                        e.getMessage()
-                );
-            } else {
-                resultMessage = new ResultMessage(
-                        ReturnMsg.UNKNOWN_ERROR.getCode(),
-                        ReturnMsg.UNKNOWN_ERROR.getMessage(),
-                        e.getMessage()
-                );
-            }
-
-        }
-
-        return resultMessage;
+        return new ResultMessage(
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
+                restTemplate.exchange(requestUrl, HttpMethod.PUT, this.constructHttpEntity(mappings), JSONObject.class).getBody()
+        );
     }
 
     @Override
@@ -68,84 +46,51 @@ public class EsRestServiceImpl implements EsRestService {
 
     @Override
     public ResultMessage addDataToIndex(String indexName, String type, Map<String, String> data) {
-        String requestUrl = this.constructRequestUrl(indexName, null, null, null);
-        ResultMessage resultMessage;
-
-        try {
-            JSONObject result = restTemplate.exchange(requestUrl, HttpMethod.PUT, this.constructHttpEntity(data), JSONObject.class).getBody();
-            resultMessage = new ResultMessage(
-                    ReturnMsg.SUCCESS.getCode(),
-                    ReturnMsg.SUCCESS.getMessage(),
-                    result
-            );
-        } catch (Exception e) {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.UNKNOWN_ERROR.getCode(),
-                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
-                    e.getMessage()
-            );
-        }
-        return resultMessage;
+        String requestUrl = this.constructRequestUrl(indexName, type, null, null);
+        return new ResultMessage(
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
+                restTemplate.exchange(requestUrl, HttpMethod.POST, this.constructHttpEntity(data), JSONObject.class).getBody()
+        );
     }
 
     @Override
     public ResultMessage deleteDataFromIndex(String indexName, String type, String id) {
         String requestUrl = this.constructRequestUrl(indexName, type, id, null);
-
         return this.deleteOperation(requestUrl);
     }
 
     @Override
     public ResultMessage updateDataFromIndex(String indexName, String type, String id, Map<String, String> data) {
         String requestUrl = this.constructRequestUrl(indexName, type, id, Constant.ES_UPDATE_END);
-        ResultMessage resultMessage;
         JSONObject updateData = new JSONObject();
         updateData.put("doc", data);
-        try {
-            JSONObject result = restTemplate.exchange(requestUrl, HttpMethod.POST, this.constructHttpEntity(updateData), JSONObject.class).getBody();
-            resultMessage = new ResultMessage(
+        return new ResultMessage(
                     ReturnMsg.SUCCESS.getCode(),
                     ReturnMsg.SUCCESS.getMessage(),
-                    result
+                    restTemplate.exchange(requestUrl, HttpMethod.POST, this.constructHttpEntity(updateData), JSONObject.class).getBody()
             );
-        } catch (Exception e) {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.UNKNOWN_ERROR.getCode(),
-                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
-                    e.getMessage()
-            );
-        }
-        return resultMessage;
     }
 
+    /**
+     * 发起delete请求
+     * @param requestUrl 请求地址
+     * @return 请求的结果
+     */
     private ResultMessage deleteOperation(String requestUrl) {
-        ResultMessage resultMessage;
-        try {
-            JSONObject result = restTemplate.exchange(requestUrl, HttpMethod.DELETE, this.constructHttpEntity(null), JSONObject.class).getBody();
-            resultMessage = new ResultMessage(
-                    ReturnMsg.SUCCESS.getCode(),
-                    ReturnMsg.SUCCESS.getMessage(),
-                    result
-            );
-        } catch (Exception e) {
-            if (Constant.NOT_FOUND.equals(e.getMessage())) {
-                resultMessage = new ResultMessage(
-                        ReturnMsg.INDEX_NOT_FOUND.getCode(),
-                        ReturnMsg.INDEX_NOT_FOUND.getMessage(),
-                        e.getMessage()
-                );
-            } else {
-                resultMessage = new ResultMessage(
-                        ReturnMsg.UNKNOWN_ERROR.getCode(),
-                        ReturnMsg.UNKNOWN_ERROR.getMessage(),
-                        e.getMessage()
-                );
-            }
-        }
-        return resultMessage;
+        return new ResultMessage(
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
+                restTemplate.exchange(requestUrl, HttpMethod.DELETE, this.constructHttpEntity(null), JSONObject.class).getBody()
+        );
     }
 
 
+    /**
+     * 构造请求的http entity
+     * @param data 数据
+     * @return 填充数据的http entity
+     */
     private HttpEntity<?> constructHttpEntity(Object data) {
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON_UTF8);
@@ -154,15 +99,23 @@ public class EsRestServiceImpl implements EsRestService {
         return new HttpEntity<>(data, header);
     }
 
+    /**
+     * 构造请求的url
+     * @param indexName 索引名称
+     * @param type 数据存放的type
+     * @param id 数据的id
+     * @param end 数据的结尾
+     * @return 构造完成的url
+     */
     private String constructRequestUrl(String indexName, String type, String id, String end) {
         String requestUrl = elasticsearchUrl + "/" + indexName;
-        if (!StringUtils.isEmpty(type)) {
+        if (type != null) {
             requestUrl += "/" + type;
         }
-        if (!StringUtils.isEmpty(id)) {
+        if (id != null) {
             requestUrl += "/" + id;
         }
-        if (!StringUtils.isEmpty(end)) {
+        if (end != null) {
             requestUrl += "/" + end;
         }
         return requestUrl;

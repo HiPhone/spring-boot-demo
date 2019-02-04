@@ -2,8 +2,8 @@ package org.hiphone.elasticsearch.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.elasticsearch.client.transport.TransportClient;
-import org.hiphone.elasticsearch.constants.ReturnMsg;
 import org.hiphone.elasticsearch.entitys.ResultMessage;
+import org.hiphone.elasticsearch.exception.ReturnMsg;
 import org.hiphone.elasticsearch.service.EsTransportService;
 import org.hiphone.elasticsearch.utils.ESUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,82 +20,39 @@ public class EsTransportServiceImpl implements EsTransportService {
 
     @Override
     public ResultMessage insertDataToEsByTransport(String indexName, JSONObject data) {
-        ResultMessage resultMessage;
-
-        try {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.SUCCESS.getCode(),
-                    ReturnMsg.SUCCESS.getMessage(),
-                    ESUtil.insert(transportClient, indexName, data)
-            );
-
-        } catch (Exception e) {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.UNKNOWN_ERROR.getCode(),
-                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
-                    e.getMessage()
-            );
-        }
-        return resultMessage;
+        return new ResultMessage(
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
+                ESUtil.insert(transportClient, indexName, data)
+        );
     }
 
     @Override
     public ResultMessage getDataById(String indexName, String id) {
-        ResultMessage resultMessage;
-
-        try {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.SUCCESS.getCode(),
-                    ReturnMsg.SUCCESS.getMessage(),
-                    ESUtil.getDataById(transportClient, indexName, id)
-            );
-        } catch (Exception e) {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.UNKNOWN_ERROR.getCode(),
-                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
-                    e.getMessage()
-            );
-        }
-        return resultMessage;
+        return new ResultMessage(
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
+                ESUtil.getDataById(transportClient, indexName, id)
+        );
     }
 
     @Override
     public ResultMessage updateDataById(String indexName, String id, JSONObject data) {
-        ResultMessage resultMessage;
 
-        try {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.SUCCESS.getCode(),
-                    ReturnMsg.SUCCESS.getMessage(),
-                    ESUtil.updateDataById(transportClient, indexName, id, data)
-            );
-        } catch (Exception e) {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.UNKNOWN_ERROR.getCode(),
-                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
-                    e.getMessage()
-            );
-        }
-        return resultMessage;
+        return new ResultMessage(
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
+                ESUtil.updateDataById(transportClient, indexName, id, data)
+        );
     }
 
     @Override
     public ResultMessage deleteDataById(String indexName, String id) {
-        ResultMessage resultMessage;
+        return new ResultMessage(
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
+                ESUtil.deleteDataById(transportClient, indexName, id)
+        );
 
-        try {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.SUCCESS.getCode(),
-                    ReturnMsg.SUCCESS.getMessage(),
-                    ESUtil.deleteDataById(transportClient, indexName, id)
-            );
-        } catch (Exception e) {
-            resultMessage = new ResultMessage(
-                    ReturnMsg.UNKNOWN_ERROR.getCode(),
-                    ReturnMsg.UNKNOWN_ERROR.getMessage(),
-                    e.getMessage()
-            );
-        }
-        return resultMessage;
     }
 }

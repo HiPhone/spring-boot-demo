@@ -22,7 +22,6 @@ public class EsTransportController {
     @Autowired
     private EsTransportService esTransportService;
 
-    @ResponseBody
     @PostMapping("/add")
     @ApiOperation(value = "添加es的索引和类型的接口", notes = "通过transport client添加数据")
     public ResultMessage insertDataByTransport(@RequestParam(name = "indexName") @ApiParam(name = "indexName", value = "索引名称") String indexName,
@@ -31,7 +30,6 @@ public class EsTransportController {
         return esTransportService.insertDataToEsByTransport(indexName, data);
     }
 
-    @ResponseBody
     @GetMapping("/query")
     @ApiOperation(value = "在es对应的索引中查询指定数据", notes = "通过id查询指定数据")
     public ResultMessage queryDataById(@RequestParam(name = "indexName") @ApiParam(name = "indexName", value = "索引名称") String indexName,
@@ -40,7 +38,6 @@ public class EsTransportController {
         return esTransportService.getDataById(indexName, id);
     }
 
-    @ResponseBody
     @PutMapping("/update")
     @ApiOperation(value = "更新es中的指定数据", notes = "通过id更新指定索引中的指定数据")
     public ResultMessage updateDataById(@RequestParam(name = "indexName") @ApiParam(name = "indexName", value = "索引名称") String indexName,
@@ -50,7 +47,6 @@ public class EsTransportController {
         return esTransportService.updateDataById(indexName, id, data);
     }
 
-    @ResponseBody
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除es中的指定数据", notes = "通过id删除索引中指定的数据")
     public ResultMessage deleteDataById(@RequestParam(name = "indexName") @ApiParam(name = "indexName", value = "索引名称") String indexName,
