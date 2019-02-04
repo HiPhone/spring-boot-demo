@@ -3,7 +3,7 @@ package org.hiphone.security.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.hiphone.security.constants.ReturnCode;
+import org.hiphone.security.exception.ReturnMsg;
 import org.hiphone.security.entitys.ResultMessage;
 import org.hiphone.security.entitys.UserDTO;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +32,8 @@ public class UserController {
             log.info("User {} login success!", user.getLoginName());
         }
         return new ResultMessage(
-                ReturnCode.SUCCESS.getCode(),
-                ReturnCode.SUCCESS.getMessage(),
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
                 System.currentTimeMillis());
     }
 
@@ -43,8 +43,8 @@ public class UserController {
     public ResultMessage loginError() {
         log.info("login failed, returning error message");
         return new ResultMessage(
-                ReturnCode.LOGIN_FAIL.getCode(),
-                ReturnCode.LOGIN_FAIL.getMessage(),
+                ReturnMsg.LOGIN_FAIL.getCode(),
+                ReturnMsg.LOGIN_FAIL.getMessage(),
                 System.currentTimeMillis()
         );
     }
@@ -59,8 +59,8 @@ public class UserController {
             log.info("User {} login success!", user.getLoginName());
         }
         return new ResultMessage(
-                ReturnCode.LOGIN_SUCCESS.getCode(),
-                ReturnCode.LOGIN_SUCCESS.getMessage(),
+                ReturnMsg.LOGIN_SUCCESS.getCode(),
+                ReturnMsg.LOGIN_SUCCESS.getMessage(),
                 "/"
         );
     }
@@ -75,8 +75,8 @@ public class UserController {
         log.info("Admin {} request the adminPage", user.getLoginName());
 
         return new ResultMessage(
-                ReturnCode.SUCCESS.getCode(),
-                ReturnCode.SUCCESS.getMessage(),
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
                 "欢迎您，系统管理员"
         );
     }
@@ -93,8 +93,8 @@ public class UserController {
         }
 
         return new ResultMessage(
-                ReturnCode.SUCCESS.getCode(),
-                ReturnCode.SUCCESS.getMessage(),
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
                 "欢迎您，数据库管理员"
         );
     }
@@ -111,8 +111,8 @@ public class UserController {
         }
 
         return new ResultMessage(
-                ReturnCode.SUCCESS.getCode(),
-                ReturnCode.SUCCESS.getMessage(),
+                ReturnMsg.SUCCESS.getCode(),
+                ReturnMsg.SUCCESS.getMessage(),
                 "欢迎您，用户"
         );
     }
