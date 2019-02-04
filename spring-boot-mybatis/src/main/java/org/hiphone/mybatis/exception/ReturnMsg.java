@@ -1,4 +1,4 @@
-package org.hiphone.mybatis.constants;
+package org.hiphone.mybatis.exception;
 
 import lombok.Getter;
 
