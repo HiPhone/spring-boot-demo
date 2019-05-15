@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: spring-boot-consul-config
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      config:
+        enabled: true       #默认true, consul配置的开关
+        format: YAML        #表示consul上面文件的格式：YAML、PROPERTIES、KEY-VALUE、FILES
+        data-key: configuration      #表示consul上面的key值，或者说文件的名字，默认值为data
+        #prefix: pig-config      #是指配置值的基本文件夹
+        #default-context:   #设置所有应用程序使用文件夹名称
+        #profileSeparator:  #设置用于使用配置文件在属性源中分隔配置文件名称的分隔符的值
+        watch:
+          enabled: true
+  profiles:
+    active: dev

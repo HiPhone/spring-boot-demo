@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    consul:
+      discovery:
+        health-check-path: /health
+        health-check-interval: 15s
+        instance-id: spring-boot-consul-config
+        enabled: true
+      enabled: true
